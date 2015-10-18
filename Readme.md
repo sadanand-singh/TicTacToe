@@ -1,6 +1,6 @@
 This is a simple Tic Tac Toe game made using PyQt5.
 
-it requires Qt5 and python3.4 .
+Requires Qt5 and python3.4 .
 
 Normal mode
 
@@ -9,8 +9,3 @@ Normal mode
 Dark mode
 
 ![](ScreenShots/Dark-Mode.png)
-
-
-
-
-
