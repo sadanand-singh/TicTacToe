@@ -183,7 +183,7 @@ class Game(QMainWindow, Ui_tictactoe):
         # random_button = random.choice(self.availabeButtons)
         win, buttonIndex = self.nextMove(self.board, '0')
 
-        msg = "This game headed towards a DRAW!"
+        msg = "This game is headed towards a DRAW!"
         if win is -1:
             msg = "Soon you are going to LOOSE :("
         if win is 1:
