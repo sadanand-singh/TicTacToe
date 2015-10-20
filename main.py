@@ -21,7 +21,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtMultimedia import QSound
+from PyQt5.QtMultimedia import QSoundEffect
 
 from Dialog import *
 from tictactoe_ui import Ui_tictactoe
@@ -36,10 +36,20 @@ class Game(QMainWindow, Ui_tictactoe):
         # Shows only the close button
         self.setWindowFlags(Qt.WindowCloseButtonHint)
 
-        self.sounds = dict(circle=QSound("circle.wav"),
-                           cross=QSound("cross.wav"),
-                           win=QSound("win.wav"),
-                           lose=QSound("lose.wav"))
+        circleSound = QSoundEffect()
+        circleSound.setSource(QUrl.fromLocalFile("circle.wav"))
+        circleSound.setVolume(0.25)
+        crossSound = QSoundEffect()
+        crossSound.setSource(QUrl.fromLocalFile("cross.wav"))
+        crossSound.setVolume(0.25)
+        winSound = QSoundEffect()
+        winSound.setSource(QUrl.fromLocalFile("win.wav"))
+        winSound.setVolume(0.25)
+        loseSound = QSoundEffect()
+        loseSound.setSource(QUrl.fromLocalFile("lose.wav"))
+        loseSound.setVolume(0.25)
+
+        self.sounds = dict(circle=circleSound, cross=crossSound, win=winSound, lose=loseSound)
 
         xIconPath = os.path.join("Icons", "x.png")
         oIconPath = os.path.join("Icons", "o.png")
