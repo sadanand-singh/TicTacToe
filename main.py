@@ -33,9 +33,6 @@ class Game(QMainWindow, Ui_tictactoe):
         super().__init__(parent)
         self.setupUi(self)
 
-        self.turn = None
-        self.timer = QTimer()
-
         # Shows only the close button
         self.setWindowFlags(Qt.WindowCloseButtonHint)
 
@@ -59,38 +56,6 @@ class Game(QMainWindow, Ui_tictactoe):
         self.board = list('---------')
         self.defaultPalette = QApplication.palette()
 
-        # across the top
-        self.buttonGroup1 = [
-            self.button1, self.button2, self.button3]
-
-        # across the middle
-        self.buttonGroup2 = [
-            self.button4, self.button5, self.button6]
-
-        # across the bottom
-        self.buttonGroup3 = [
-            self.button7, self.button8, self.button9]
-
-        # down the left side
-        self.buttonGroup4 = [
-            self.button1, self.button4, self.button7]
-
-        # down the middle
-        self.buttonGroup5 = [
-            self.button2, self.button5, self.button8]
-
-        # down the right side
-        self.buttonGroup6 = [
-            self.button3, self.button6, self.button9]
-
-        # diagonal
-        self.buttonGroup7 = [
-            self.button1, self.button5, self.button9]
-
-        # diagonal
-        self.buttonGroup8 = [
-            self.button3, self.button5, self.button7]
-
         # connections
         for button in self.allButtons:
             button.clicked.connect(self.button_clicked)
@@ -104,10 +69,8 @@ class Game(QMainWindow, Ui_tictactoe):
 
     def new_game(self):
         self.reset()
-        self.turn = 1
 
     def reset(self):
-        self.turn = None
         self.frame.setEnabled(True)
         self.availabeButtons = self.allButtons[:]
         self.board = list('---------')
@@ -156,7 +119,6 @@ class Game(QMainWindow, Ui_tictactoe):
         self.board[buttonIndex] = 'X'
 
         self.sounds["cross"].play()
-
         button.setText("1")
         button.setIcon(self.xIcon)
         button.setEnabled(False)
@@ -174,10 +136,8 @@ class Game(QMainWindow, Ui_tictactoe):
             self.end_game(3)
             return
 
-        self.turn = 2
         self.frame.setEnabled(False)
-
-        self.timer.singleShot(400, self.com_play)
+        self.com_play()
 
     def com_play(self):
         # random_button = random.choice(self.availabeButtons)
@@ -217,7 +177,6 @@ class Game(QMainWindow, Ui_tictactoe):
             return
 
         self.frame.setEnabled(True)
-        self.turn = 1
 
     def isWin(self, board):
         """
