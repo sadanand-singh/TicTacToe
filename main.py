@@ -317,8 +317,7 @@ class Game(QMainWindow, Ui_tictactoe):
             palette.setColor(QPalette.Highlight, QColor(0, 24, 193).lighter())
             palette.setColor(QPalette.HighlightedText, Qt.black)
             palette.setColor(QPalette.Disabled, QPalette.Text, Qt.darkGray)
-            palette.setColor(
-                QPalette.Disabled, QPalette.ButtonText, Qt.darkGray)
+            palette.setColor(QPalette.Disabled, QPalette.ButtonText, Qt.darkGray)
             app.setPalette(palette)
             return
 
