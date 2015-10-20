@@ -56,6 +56,7 @@ class Game(QMainWindow, Ui_tictactoe):
 
         self.allButtons = self.frame.findChildren(QToolButton)
         self.availabeButtons = self.allButtons[:]
+        self.board = list('---------')
         self.defaultPalette = QApplication.palette()
 
         # across the top
@@ -109,6 +110,8 @@ class Game(QMainWindow, Ui_tictactoe):
         self.turn = None
         self.frame.setEnabled(True)
         self.availabeButtons = self.allButtons[:]
+        self.board = list('---------')
+        self.statusbar.showMessage("You are X AND Computer is 0. You play first")
 
         for button in self.availabeButtons:
             button.setText("")
