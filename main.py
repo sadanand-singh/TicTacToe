@@ -180,20 +180,42 @@ class Game(QMainWindow, Ui_tictactoe):
         self.timer.singleShot(400, self.com_play)
 
     def com_play(self):
-        try:
-            random_button = random.choice(self.availabeButtons)
-        except:  # The available button list is empty
+        # random_button = random.choice(self.availabeButtons)
+        win, buttonIndex = self.nextMove(self.board, '0')
+
+        msg = "This game headed towards a DRAW!"
+        if win is -1:
+            msg = "Soon you are going to LOOSE :("
+        if win is 1:
+            msg = "Soon you are going to WIN :)"
+        self.statusbar.showMessage(msg)
+
+        self.board[buttonIndex] = '0'
+
+        for buttonAvail in self.availabeButtons:
+            buttonName = str(buttonAvail.objectName())
+            buttonIndexNew = int(buttonName[-1]) - 1
+            if buttonIndexNew == buttonIndex:
+                random_button = buttonAvail
+                self.sounds["circle"].play()
+                random_button.setText("2")
+                random_button.setIcon(self.oIcon)
+                random_button.setEnabled(False)
+                self.availabeButtons.remove(random_button)
+                break
+
+        winTest = self.check_win('0')
+        if winTest != 2:
+            if winTest == 1:
+                self.end_game(2)
+                return
+            if winTest == -1:
+                self.end_game(1)
+                return
+
             self.end_game(3)
             return
 
-        self.sounds["circle"].play()
-        random_button.setText("2")
-        random_button.setIcon(self.oIcon)
-        random_button.setEnabled(False)
-        self.availabeButtons.remove(random_button)
-
-        if self.check():
-            return
         self.frame.setEnabled(True)
         self.turn = 1
 
