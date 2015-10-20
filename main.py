@@ -244,6 +244,48 @@ class Game(QMainWindow, Ui_tictactoe):
             return True
         return False
 
+    def nextMove(self, board, player):
+        """
+        Computes the next move for a player given the current board state and also
+        computes if the player will win or not.
+
+        Arguments:
+            board: list containing X,- and O
+            player: one character string 'X' or 'O'
+
+        Return Value:
+            willwin: 1 if 'X' is in winning state, 0 if the game is draw and -1 if 'O' is
+                        winning
+            nextmove: position where the player can play the next move so that the
+                             player wins or draws or delays the loss
+        """
+        if len(set(board)) == 1:
+            return 0, 4
+        nextplayer = 'X' if player == '0' else '0'
+        if self.isWin(board):
+            if player is 'X':
+                return -1, -1
+            else:
+                return 1, -1
+        res_list = []
+        c = board.count('-')
+        if c is 0:
+            return 0, -1
+        _list = []
+        for i in range(len(board)):
+            if board[i] == '-':
+                _list.append(i)
+        for i in _list:
+            board[i] = player
+            ret, move = self.nextMove(board, nextplayer)
+            res_list.append(ret)
+            board[i] = '-'
+        if player is 'X':
+            maxele = max(res_list)
+            return maxele, _list[res_list.index(maxele)]
+        else:
+            minele = min(res_list)
+            return minele, _list[res_list.index(minele)]
     def dark_theme(self):
         """Changes the theme between dark and normal"""
         if self.actionDark_Theme.isChecked():
