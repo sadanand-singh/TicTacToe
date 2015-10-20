@@ -286,6 +286,19 @@ class Game(QMainWindow, Ui_tictactoe):
         else:
             minele = min(res_list)
             return minele, _list[res_list.index(minele)]
+
+    def check_win(self, player):
+        if self.isWin(self.board):
+            if player is 'X':
+                return -1
+            else:
+                return 1
+
+        c = self.board.count('-')
+        if c is 0:
+            return 0
+        return 2
+
     def dark_theme(self):
         """Changes the theme between dark and normal"""
         if self.actionDark_Theme.isChecked():
