@@ -115,37 +115,6 @@ class Game(QMainWindow, Ui_tictactoe):
             button.setIcon(QIcon())
             button.setEnabled(True)
 
-    def check(self):
-        if self.check_list(self.buttonGroup1):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup2):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup3):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup4):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup5):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup6):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup7):
-            return self.end_game(self.turn)
-
-        elif self.check_list(self.buttonGroup8):
-            return self.end_game(self.turn)
-
-    def check_list(self, lst):
-        for member in lst:
-            if member.text() != str(self.turn):
-                return False
-        return True
-
     def end_game(self, state):
         """Ends the game"""
 
@@ -185,7 +154,16 @@ class Game(QMainWindow, Ui_tictactoe):
         button.setEnabled(False)
         self.availabeButtons.remove(button)
 
-        if self.check():
+        winTest = self.check_win('X')
+        if winTest != 2:
+            if winTest == 1:
+                self.end_game(1)
+                return
+            if winTest == -1:
+                self.end_game(2)
+                return
+
+            self.end_game(3)
             return
 
         self.turn = 2
