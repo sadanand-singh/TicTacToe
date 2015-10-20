@@ -140,7 +140,6 @@ class Game(QMainWindow, Ui_tictactoe):
         self.com_play()
 
     def com_play(self):
-        # random_button = random.choice(self.availabeButtons)
         win, buttonIndex = self.nextMove(self.board, '0')
 
         msg = "This game is headed towards a DRAW!"
