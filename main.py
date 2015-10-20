@@ -150,6 +150,11 @@ class Game(QMainWindow, Ui_tictactoe):
     def button_clicked(self):
         button = self.sender()
 
+        buttonName = str(button.objectName())
+        buttonIndex = int(buttonName[-1]) - 1
+
+        self.board[buttonIndex] = 'X'
+
         self.sounds["cross"].play()
 
         button.setText("1")
