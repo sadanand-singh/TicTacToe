@@ -155,12 +155,12 @@ class Game(QMainWindow, Ui_tictactoe):
             buttonName = str(buttonAvail.objectName())
             buttonIndexNew = int(buttonName[-1]) - 1
             if buttonIndexNew == buttonIndex:
-                random_button = buttonAvail
+                button = buttonAvail
                 self.sounds["circle"].play()
-                random_button.setText("2")
-                random_button.setIcon(self.oIcon)
-                random_button.setEnabled(False)
-                self.availabeButtons.remove(random_button)
+                button.setText("2")
+                button.setIcon(self.oIcon)
+                button.setEnabled(False)
+                self.availabeButtons.remove(button)
                 break
 
         winTest = self.check_win('0')
