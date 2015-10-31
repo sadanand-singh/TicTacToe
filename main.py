@@ -49,7 +49,8 @@ class Game(QMainWindow, Ui_tictactoe):
         loseSound.setSource(QUrl.fromLocalFile("lose.wav"))
         loseSound.setVolume(0.25)
 
-        self.sounds = dict(circle=circleSound, cross=crossSound, win=winSound, lose=loseSound)
+        self.sounds = dict(circle=circleSound, cross=crossSound, win=winSound,
+                           lose=loseSound)
 
         xIconPath = os.path.join("Icons", "x.png")
         oIconPath = os.path.join("Icons", "o.png")
@@ -84,7 +85,7 @@ class Game(QMainWindow, Ui_tictactoe):
         self.frame.setEnabled(True)
         self.availabeButtons = self.allButtons[:]
         self.board = list('---------')
-        self.statusbar.showMessage("You are X AND Computer is 0. You play first")
+        self.statusbar.showMessage("You are X. You play first")
 
         for button in self.availabeButtons:
             button.setText("")
@@ -199,33 +200,52 @@ class Game(QMainWindow, Ui_tictactoe):
         """
         #  check if any of the rows has winning combination
         for i in range(3):
-            if len(set(board[i * 3:i * 3 + 3])) is 1 and board[i * 3] is not '-':
+            if (
+                    len(set(board[i * 3:i * 3 + 3])) is 1 and
+                    board[i * 3] is not '-'
+               ):
                 return True
+
         # check if any of the Columns has winning combination
         for i in range(3):
-            if (board[i] is board[i + 3]) and (board[i] is board[i + 6]) and board[i] is not '-':
+            if (
+                    (board[i] is board[i + 3]) and
+                    (board[i] is board[i + 6]) and
+                    board[i] is not '-'
+               ):
                 return True
+
         # 2,4,6 and 0,4,8 cases
-        if board[0] is board[4] and board[4] is board[8] and board[4] is not '-':
+        if (
+                board[0] is board[4] and
+                board[4] is board[8] and
+                board[4] is not '-'
+           ):
             return True
-        if board[2] is board[4] and board[4] is board[6] and board[4] is not '-':
+
+        if (
+                board[2] is board[4] and
+                board[4] is board[6] and
+                board[4] is not '-'
+           ):
             return True
+
         return False
 
     def nextMove(self, board, player):
         """
-        Computes the next move for a player given the current board state and also
-        computes if the player will win or not.
+        Computes the next move for a player given the current board state
+        and also computes if the player will win or not.
 
         Arguments:
             board: list containing X,- and O
             player: one character string 'X' or 'O'
 
         Return Value:
-            willwin: 1 if 'X' is in winning state, 0 if the game is draw and -1 if 'O' is
-                        winning
-            nextmove: position where the player can play the next move so that the
-                             player wins or draws or delays the loss
+            willwin: 1 if 'X' is in winning state, 0 if the game is draw
+            and -1 if 'O' is winning
+            nextmove: position where the player can play the next move so
+            that the player wins or draws or delays the loss
         """
         if len(set(board)) == 1:
             return 0, 4
@@ -271,26 +291,25 @@ class Game(QMainWindow, Ui_tictactoe):
         """Changes the theme between dark and normal"""
         if self.actionDark_Theme.isChecked():
             QApplication.setStyle(QStyleFactory.create("Fusion"))
-            palette = QPalette()
-            palette.setColor(QPalette.Window, QColor(53, 53, 53))
-            palette.setColor(QPalette.WindowText, Qt.white)
-            palette.setColor(QPalette.Base, QColor(15, 15, 15))
-            palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
-            palette.setColor(QPalette.ToolTipBase, Qt.white)
-            palette.setColor(QPalette.ToolTipText, Qt.white)
-            palette.setColor(QPalette.Text, Qt.white)
-            palette.setColor(QPalette.Button, QColor(53, 53, 53))
-            palette.setColor(QPalette.ButtonText, Qt.white)
-            palette.setColor(QPalette.BrightText, Qt.red)
-            palette.setColor(QPalette.Highlight, QColor(0, 24, 193).lighter())
-            palette.setColor(QPalette.HighlightedText, Qt.black)
-            palette.setColor(QPalette.Disabled, QPalette.Text, Qt.darkGray)
-            palette.setColor(QPalette.Disabled, QPalette.ButtonText, Qt.darkGray)
-            app.setPalette(palette)
+            plt = QPalette()
+            plt.setColor(QPalette.Window, QColor(53, 53, 53))
+            plt.setColor(QPalette.WindowText, Qt.white)
+            plt.setColor(QPalette.Base, QColor(15, 15, 15))
+            plt.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+            plt.setColor(QPalette.ToolTipBase, Qt.white)
+            plt.setColor(QPalette.ToolTipText, Qt.white)
+            plt.setColor(QPalette.Text, Qt.white)
+            plt.setColor(QPalette.Button, QColor(53, 53, 53))
+            plt.setColor(QPalette.ButtonText, Qt.white)
+            plt.setColor(QPalette.BrightText, Qt.red)
+            plt.setColor(QPalette.Highlight, QColor(0, 24, 193).lighter())
+            plt.setColor(QPalette.HighlightedText, Qt.black)
+            plt.setColor(QPalette.Disabled, QPalette.Text, Qt.darkGray)
+            plt.setColor(QPalette.Disabled, QPalette.ButtonText, Qt.darkGray)
+            app.setPalette(plt)
             return
 
         app.setPalette(self.defaultPalette)
-
 
 app = QApplication(sys.argv)
 game = Game()
